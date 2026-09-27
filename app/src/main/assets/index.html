@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#0b0f14">
+<title>Dinero Real</title>
+<style>
+:root{--bg:#0b0f14;--panel:#121821;--panel2:#171f2a;--line:#263241;--text:#f4f7fb;--muted:#93a1b2;--green:#35d07f;--green2:#163d2a;--amber:#f5b84b;--red:#ff675f;--blue:#6ea8ff;--radius:20px}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:16px}
+body{min-height:100%;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.app{max-width:760px;margin:0 auto;padding:18px 16px 94px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.brand{font-size:22px;font-weight:800;letter-spacing:-.5px}.badge{font-size:11px;font-weight:700;color:var(--green);border:1px solid #245a3e;background:#10271c;padding:5px 8px;border-radius:999px}
+.sub{color:var(--muted);font-size:13px;line-height:1.45}
+.page{display:none}.page.active{display:block}
+.hero{padding:20px;border:1px solid var(--line);background:linear-gradient(145deg,#121922,#0e141c);border-radius:24px;margin-bottom:14px}
+.eyebrow{text-transform:uppercase;letter-spacing:.12em;font-size:11px;color:var(--muted);font-weight:800}
+.hero h1{margin:8px 0 8px;font-size:30px;line-height:1.02;letter-spacing:-1.1px}.hero .big{font-size:34px;font-weight:850;letter-spacing:-1px;margin:8px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.card{border:1px solid var(--line);background:var(--panel);border-radius:var(--radius);padding:16px;min-width:0}.card.full{grid-column:1/-1}
+.label{font-size:12px;color:var(--muted);margin-bottom:6px}.value{font-size:22px;font-weight:800;letter-spacing:-.5px;overflow-wrap:anywhere}.value.good{color:var(--green)}.value.warn{color:var(--amber)}.value.bad{color:var(--red)}
+.section-title{font-size:19px;font-weight:800;margin:20px 2px 10px;letter-spacing:-.3px}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{min-width:0}.field.full{grid-column:1/-1}.field label{display:block;font-size:12px;color:var(--muted);margin:0 0 6px 2px}.inputwrap{position:relative}.inputwrap input,.field select{width:100%;height:50px;border:1px solid var(--line);background:#0e141b;color:var(--text);border-radius:14px;padding:0 44px 0 13px;outline:none}.field select{padding-right:12px}.inputwrap input:focus,.field select:focus{border-color:#3f6e56;box-shadow:0 0 0 3px rgba(53,208,127,.08)}.suffix{position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13px;pointer-events:none}.hint{font-size:11px;color:var(--muted);line-height:1.4;margin-top:6px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.btn{border:1px solid var(--line);background:var(--panel2);color:var(--text);min-height:46px;padding:0 15px;border-radius:14px;font-weight:750}.btn.primary{background:var(--green);border-color:var(--green);color:#07140d}.btn.danger{color:#ff9792}.btn.wide{flex:1}
+.result{border:1px solid var(--line);background:var(--panel);border-radius:24px;padding:18px;margin-top:14px}.result-row{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid var(--line)}.result-row:last-child{border-bottom:0}.result-row span{color:var(--muted);font-size:13px}.result-row strong{text-align:right;font-size:15px}.result-main{display:flex;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--line);margin-bottom:4px}.dot{width:11px;height:11px;border-radius:999px;background:var(--amber);flex:0 0 auto}.result-main h3{margin:0;font-size:17px}.result-main p{margin:3px 0 0;color:var(--muted);font-size:12px;line-height:1.4}
+.progress-head{display:flex;justify-content:space-between;gap:10px;font-size:12px;margin:14px 0 7px}.progress-head span:last-child{font-weight:800}.progress{height:10px;background:#25303d;border-radius:999px;overflow:hidden}.bar{height:100%;width:0;background:var(--green);border-radius:999px;transition:width .25s ease}
+.goal-card{border:1px solid var(--line);background:var(--panel);border-radius:20px;padding:16px;margin-top:12px}.goal-card h3{margin:0 0 4px;font-size:16px}.scenario{border:1px solid var(--line);background:var(--panel);border-radius:18px;padding:14px;margin-top:10px}.scenario-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.scenario h3{margin:0;font-size:15px}.scenario p{margin:4px 0 0;color:var(--muted);font-size:12px}.scenario .mini{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.mini div{background:#0e141b;border-radius:12px;padding:9px}.mini span{display:block;color:var(--muted);font-size:10px}.mini strong{display:block;margin-top:3px;font-size:12px;overflow-wrap:anywhere}.scenario-actions{display:flex;gap:8px;margin-top:10px}.scenario-actions button{flex:1;min-height:40px;border-radius:12px;border:1px solid var(--line);background:#101720;color:var(--text);font-size:12px;font-weight:700}
+.empty{border:1px dashed #334155;border-radius:18px;padding:24px;text-align:center;color:var(--muted);font-size:13px;line-height:1.5}
+.disclaimer{font-size:10.5px;line-height:1.45;color:#718096;margin:14px 2px 0}
+.nav{position:fixed;left:0;right:0;bottom:0;background:rgba(11,15,20,.96);border-top:1px solid #202a35;padding:8px 10px calc(8px + env(safe-area-inset-bottom));z-index:10;backdrop-filter:blur(10px)}.nav-inner{max-width:760px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:4px}.nav button{border:0;background:transparent;color:var(--muted);padding:8px 3px;border-radius:12px;font-size:11px;font-weight:700}.nav button.active{color:var(--green);background:#102219}.nav .ico{font-size:18px;display:block;margin-bottom:2px}
+.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:7px 10px;font-size:12px;color:var(--muted);margin-top:8px}.split{display:flex;align-items:center;justify-content:space-between;gap:12px}.muted{color:var(--muted)}
+
+.expense-list{display:flex;flex-direction:column;gap:9px;margin-top:12px}.expense-row{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--line);background:var(--panel);border-radius:16px;padding:12px}.expense-main{min-width:0;flex:1}.expense-name{font-weight:760;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.expense-meta{margin-top:3px;color:var(--muted);font-size:11px}.expense-amount{text-align:right;font-weight:800;font-size:14px}.expense-monthly{display:block;margin-top:2px;color:var(--muted);font-size:10px;font-weight:500}.icon-btn{border:1px solid var(--line);background:#101720;color:#ff9792;border-radius:10px;min-width:38px;min-height:38px}.tag{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;padding:3px 7px;font-size:10px;margin-right:4px}.tag.essential{color:var(--green)}.tag.optional{color:var(--amber)}.summary-note{margin-top:10px;color:var(--muted);font-size:11px;line-height:1.45}
+@media(max-width:520px){.app{padding-left:14px;padding-right:14px}.form{grid-template-columns:1fr}.field.full{grid-column:auto}.grid{grid-template-columns:1fr 1fr}.hero h1{font-size:27px}.scenario .mini{grid-template-columns:1fr 1fr}.scenario .mini div:last-child{grid-column:1/-1}}
+@media(max-width:350px){.grid{grid-template-columns:1fr}.card.full{grid-column:auto}.hero h1{font-size:25px}.value{font-size:20px}}
+@media(prefers-reduced-motion:reduce){.bar{transition:none}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top"><div><div class="brand">Dinero Real</div><div class="sub">Tus números, sin humo.</div></div><div class="badge">V0.2 · OFFLINE</div></header>
+
+  <main>
+    <section id="page-home" class="page active">
+      <div class="hero">
+        <div class="eyebrow">Resumen</div>
+        <h1>Tu escenario financiero, de un vistazo.</h1>
+        <div id="homeStatus" class="pill">Configura tu primera simulación</div>
+      </div>
+      <div class="section-title" style="margin-top:0">Flujo mensual</div>
+      <div class="grid">
+        <article class="card"><div class="label">Ingresos netos</div><div id="homeIncome" class="value">2.000 €</div></article>
+        <article class="card"><div class="label">Gastos fijos equivalentes</div><div id="homeFixed" class="value">—</div></article>
+        <article class="card"><div class="label">Presupuesto variable</div><div id="homeVariable" class="value">—</div></article>
+        <article class="card"><div class="label">Capacidad de ahorro</div><div id="homeCapacity" class="value good">—</div><div id="homeSavingRate" class="sub" style="margin-top:5px">Añade tus gastos</div></article>
+      </div>
+      <div class="section-title">Vivienda</div>
+      <div class="grid">
+        <article class="card"><div class="label">Ahorros actuales</div><div id="homeSavings" class="value">25.000 €</div></article>
+        <article class="card"><div class="label">Objetivo vivienda</div><div id="homePrice" class="value">200.000 €</div></article>
+        <article class="card"><div class="label">Dinero inicial estimado</div><div id="homeNeeded" class="value">64.000 €</div></article>
+        <article class="card"><div class="label">Cuota estimada</div><div id="homePayment" class="value">675 €/mes</div></article>
+        <article class="card full">
+          <div class="split"><div><div class="label">Progreso hacia entrada + gastos</div><div id="homeProgressValue" class="value good">39 %</div></div><div id="homeGap" class="muted" style="text-align:right;font-size:12px">Faltan 39.000 €</div></div>
+          <div class="progress" style="margin-top:12px"><div id="homeProgress" class="bar"></div></div>
+        </article>
+      </div>
+      <div class="section-title">Accesos rápidos</div>
+      <div class="grid">
+        <button class="card" data-go="expenses" style="text-align:left;color:inherit"><div class="label">Configurar</div><div class="value" style="font-size:17px">💸 Gastos</div><div class="sub" style="margin-top:6px">Calcula tu ahorro real</div></button>
+        <button class="card" data-go="housing" style="text-align:left;color:inherit"><div class="label">Simular</div><div class="value" style="font-size:17px">🏠 Vivienda</div><div class="sub" style="margin-top:6px">Entrada, gastos y cuota</div></button>
+        <button class="card" data-go="goal" style="text-align:left;color:inherit"><div class="label">Planificar</div><div class="value" style="font-size:17px">🎯 Objetivo</div><div class="sub" style="margin-top:6px">Cuándo llegarás a tu meta</div></button>
+      </div>
+      <p class="disclaimer">Herramienta orientativa para simulaciones personales. No constituye asesoramiento financiero, hipotecario, fiscal ni legal.</p>
+    </section>
+
+    <section id="page-expenses" class="page">
+      <div class="eyebrow">Gastos</div><div class="section-title" style="margin-top:4px">¿Cuánto puedes ahorrar de verdad?</div>
+      <div class="form">
+        <div class="field"><label for="expenseIncome">Ingresos netos mensuales</label><div class="inputwrap"><input id="expenseIncome" type="number" inputmode="decimal" min="0" step="50"><span class="suffix">€</span></div></div>
+        <div class="field"><label for="variableBudget">Presupuesto variable mensual</label><div class="inputwrap"><input id="variableBudget" type="number" inputmode="decimal" min="0" step="25"><span class="suffix">€</span></div><div class="hint">Comida, gasolina, ocio, compras y otros gastos que cambian cada mes.</div></div>
+      </div>
+
+      <div class="grid" style="margin-top:14px">
+        <article class="card"><div class="label">Fijos esenciales</div><div id="essentialOut" class="value">0 €</div></article>
+        <article class="card"><div class="label">Fijos prescindibles</div><div id="optionalOut" class="value">0 €</div></article>
+        <article class="card"><div class="label">Gasto mensual previsto</div><div id="totalSpendOut" class="value">0 €</div></article>
+        <article class="card"><div class="label">Capacidad de ahorro</div><div id="capacityOut" class="value good">—</div><div id="rateOut" class="sub" style="margin-top:5px">—</div></article>
+      </div>
+
+      <div class="section-title">Añadir gasto fijo</div>
+      <form id="expenseForm" class="form" novalidate>
+        <div class="field full"><label for="expenseName">Nombre</label><div class="inputwrap"><input id="expenseName" type="text" maxlength="40" placeholder="Ej. Netflix, teléfono, seguro..." style="padding-right:13px"></div></div>
+        <div class="field"><label for="expenseAmount">Importe</label><div class="inputwrap"><input id="expenseAmount" type="number" inputmode="decimal" min="0" step="0.01"><span class="suffix">€</span></div></div>
+        <div class="field"><label for="expenseFrequency">Frecuencia</label><select id="expenseFrequency"><option value="monthly">Mensual</option><option value="quarterly">Trimestral</option><option value="semiannual">Semestral</option><option value="annual">Anual</option></select></div>
+        <div class="field"><label for="expenseCategory">Categoría</label><select id="expenseCategory"><option>Vivienda</option><option>Suministros</option><option>Comunicaciones</option><option>Transporte</option><option>Suscripciones y ocio</option><option>Salud y deporte</option><option>Seguros</option><option>Familia</option><option>Deudas</option><option>Otros</option></select></div>
+        <div class="field"><label for="expenseType">Tipo</label><select id="expenseType"><option value="essential">Esencial</option><option value="optional">Prescindible</option></select></div>
+        <div class="field full"><button type="submit" class="btn primary wide">+ Añadir gasto</button></div>
+      </form>
+      <div class="hint" style="margin-top:8px">Ejemplo: teléfono → Comunicaciones. Netflix/Spotify → Suscripciones y ocio. Un seguro anual se prorratea automáticamente a coste mensual.</div>
+
+      <div class="section-title">Tus gastos fijos</div>
+      <div id="expenseList" class="expense-list"></div>
+      <p class="disclaimer">La capacidad de ahorro es una estimación: ingresos netos menos gastos fijos prorrateados y presupuesto variable mensual. No incluye gastos extraordinarios no presupuestados.</p>
+    </section>
+
+    <section id="page-housing" class="page">
+      <div class="eyebrow">Vivienda</div><div class="section-title" style="margin-top:4px">¿Cuánto necesitas realmente?</div>
+      <form id="housingForm" class="form" novalidate>
+        <div class="field"><label for="income">Sueldo neto mensual</label><div class="inputwrap"><input id="income" type="number" inputmode="decimal" min="0" step="50"><span class="suffix">€</span></div></div>
+        <div class="field"><label for="savings">Ahorros actuales</label><div class="inputwrap"><input id="savings" type="number" inputmode="decimal" min="0" step="500"><span class="suffix">€</span></div></div>
+        <div class="field"><label for="price">Precio de vivienda</label><div class="inputwrap"><input id="price" type="number" inputmode="decimal" min="1000" step="1000"><span class="suffix">€</span></div></div>
+        <div class="field"><label for="financePct">Financiación bancaria</label><div class="inputwrap"><input id="financePct" type="number" inputmode="decimal" min="0" max="100" step="1"><span class="suffix">%</span></div></div>
+        <div class="field"><label for="taxPct">Impuestos estimados</label><div class="inputwrap"><input id="taxPct" type="number" inputmode="decimal" min="0" max="30" step="0.5"><span class="suffix">%</span></div></div>
+        <div class="field"><label for="costPct">Otros gastos compra</label><div class="inputwrap"><input id="costPct" type="number" inputmode="decimal" min="0" max="20" step="0.5"><span class="suffix">%</span></div></div>
+        <div class="field"><label for="rate">Interés anual (TIN)</label><div class="inputwrap"><input id="rate" type="number" inputmode="decimal" min="0" max="25" step="0.05"><span class="suffix">%</span></div></div>
+        <div class="field"><label for="years">Plazo</label><div class="inputwrap"><input id="years" type="number" inputmode="numeric" min="1" max="50" step="1"><span class="suffix">años</span></div></div>
+        <div class="field full"><label for="monthlySaving">Ahorro mensual previsto</label><div class="inputwrap"><input id="monthlySaving" type="number" inputmode="decimal" min="0" step="50"><span class="suffix">€</span></div><div class="hint">Puedes usar la capacidad calculada a partir de tus gastos.</div></div>
+        <div class="field full"><button id="useCapacityHousing" type="button" class="btn wide">Usar capacidad de ahorro calculada</button></div>
+      </form>
+
+      <div class="result" aria-live="polite">
+        <div class="result-main"><div id="houseDot" class="dot"></div><div><h3 id="houseStatus">Calculando…</h3><p id="houseStatusDetail"></p></div></div>
+        <div class="result-row"><span>Hipoteca</span><strong id="loanOut">—</strong></div>
+        <div class="result-row"><span>Entrada</span><strong id="downOut">—</strong></div>
+        <div class="result-row"><span>Impuestos + gastos</span><strong id="feesOut">—</strong></div>
+        <div class="result-row"><span>Dinero inicial total</span><strong id="neededOut">—</strong></div>
+        <div class="result-row"><span>Te falta ahorrar</span><strong id="gapOut">—</strong></div>
+        <div class="result-row"><span>Cuota estimada</span><strong id="paymentOut">—</strong></div>
+        <div class="result-row"><span>Cuota / sueldo neto</span><strong id="effortOut">—</strong></div>
+        <div class="progress-head"><span>Progreso entrada + gastos</span><span id="progressLabel">0 %</span></div><div class="progress"><div id="progressBar" class="bar"></div></div>
+      </div>
+      <div class="actions"><button id="saveScenario" type="button" class="btn primary wide">Guardar escenario</button><button id="resetHousing" type="button" class="btn">Restablecer</button></div>
+      <p class="disclaimer">La cuota usa un sistema de amortización francés simplificado y no incluye seguros, comisiones, comunidad, IBI, mantenimiento ni otros costes recurrentes. Los impuestos y gastos reales dependen de la operación.</p>
+    </section>
+
+    <section id="page-goal" class="page">
+      <div class="eyebrow">Objetivos</div><div class="section-title" style="margin-top:4px">Convierte una meta en una fecha.</div>
+      <form id="goalForm" class="form" novalidate>
+        <div class="field full"><label for="goalName">Nombre del objetivo</label><div class="inputwrap"><input id="goalName" type="text" maxlength="40" style="padding-right:13px"></div></div>
+        <div class="field"><label for="goalTarget">Objetivo total</label><div class="inputwrap"><input id="goalTarget" type="number" inputmode="decimal" min="0" step="500"><span class="suffix">€</span></div></div>
+        <div class="field"><label for="goalCurrent">Ya tienes</label><div class="inputwrap"><input id="goalCurrent" type="number" inputmode="decimal" min="0" step="500"><span class="suffix">€</span></div></div>
+        <div class="field full"><label for="goalMonthly">Ahorro mensual</label><div class="inputwrap"><input id="goalMonthly" type="number" inputmode="decimal" min="0" step="50"><span class="suffix">€</span></div></div>
+        <div class="field full"><button id="useCapacityGoal" type="button" class="btn wide">Usar capacidad de ahorro calculada</button></div>
+      </form>
+      <div class="goal-card" aria-live="polite">
+        <div class="label">Resultado</div><div id="goalResult" class="value">—</div><div id="goalDetail" class="sub" style="margin-top:8px">Introduce tus cifras.</div>
+        <div class="progress-head"><span>Progreso</span><span id="goalProgressLabel">0 %</span></div><div class="progress"><div id="goalProgress" class="bar"></div></div>
+      </div>
+      <div class="actions"><button id="saveGoal" type="button" class="btn primary wide">Guardar objetivo</button></div>
+      <div class="section-title">Objetivo guardado</div><div id="savedGoalWrap"></div>
+      <p class="disclaimer">La fecha calculada asume una aportación mensual constante y no incorpora rentabilidad, inflación ni cambios de ingresos o gastos.</p>
+    </section>
+
+    <section id="page-scenarios" class="page">
+      <div class="eyebrow">Escenarios</div><div class="section-title" style="margin-top:4px">Compara antes de decidir.</div>
+      <div id="scenarioList"></div>
+      <p class="disclaimer">Los escenarios se guardan solo en este dispositivo. Si borras los datos de la app, se eliminarán.</p>
+    </section>
+  </main>
+</div>
+
+<nav class="nav" aria-label="Navegación principal"><div class="nav-inner">
+  <button class="active" data-page="home"><span class="ico">⌂</span>Inicio</button>
+  <button data-page="expenses"><span class="ico">€</span>Gastos</button>
+  <button data-page="housing"><span class="ico">⌁</span>Vivienda</button>
+  <button data-page="goal"><span class="ico">◎</span>Objetivos</button>
+  <button data-page="scenarios"><span class="ico">▤</span>Escenarios</button>
+</div></nav>
+
+<script>
+(function(){
+'use strict';
+const KEY='dineroReal_v01';
+const defaults={
+  housing:{income:2000,savings:25000,price:200000,financePct:80,taxPct:10,costPct:2,rate:3,years:30,monthlySaving:600},
+  expenses:{variableBudget:0,items:[]},
+  goal:{name:'Entrada vivienda',target:64000,current:25000,monthly:600},savedGoal:null,scenarios:[]
+};
+let state=load();
+function structuredCloneSafe(o){return JSON.parse(JSON.stringify(o))}
+function load(){try{const raw=localStorage.getItem(KEY);if(!raw)return structuredCloneSafe(defaults);const p=JSON.parse(raw);return {housing:{...defaults.housing,...(p.housing||{})},expenses:{variableBudget:Number(p.expenses?.variableBudget)||0,items:Array.isArray(p.expenses?.items)?p.expenses.items:[]},goal:{...defaults.goal,...(p.goal||{})},savedGoal:p.savedGoal||null,scenarios:Array.isArray(p.scenarios)?p.scenarios:[]};}catch(e){return structuredCloneSafe(defaults)}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+const $=id=>document.getElementById(id);
+const eur=new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR',maximumFractionDigits:0});
+const eur2=new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR',minimumFractionDigits:0,maximumFractionDigits:2});
+const num1=new Intl.NumberFormat('es-ES',{maximumFractionDigits:1});
+function val(id,fallback,min,max){let n=Number($(id).value);if(!Number.isFinite(n))n=fallback;n=Math.max(min,Math.min(max,n));return n}
+function pct(n){return num1.format(n)+' %'}
+function monthsText(m){if(m===0)return 'Objetivo alcanzado';if(m===null)return 'Sin plazo calculable';if(m<12)return m+' meses';const y=Math.floor(m/12),r=m%12;return y+' '+(y===1?'año':'años')+(r?' y '+r+' meses':'')}
+function futureDate(months){const d=new Date();d.setDate(1);d.setMonth(d.getMonth()+months);return new Intl.DateTimeFormat('es-ES',{month:'long',year:'numeric'}).format(d)}
+function escapeHtml(s){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+function freqMonths(f){return ({monthly:1,quarterly:3,semiannual:6,annual:12})[f]||1}
+function freqLabel(f){return ({monthly:'Mensual',quarterly:'Trimestral',semiannual:'Semestral',annual:'Anual'})[f]||'Mensual'}
+function expenseMonthly(item){const a=Number(item.amount)||0;return Math.max(0,a)/freqMonths(item.frequency)}
+function expenseStats(){let essential=0,optional=0;for(const item of state.expenses.items){const m=expenseMonthly(item);if(item.type==='optional')optional+=m;else essential+=m}const fixed=essential+optional,variable=Math.max(0,Number(state.expenses.variableBudget)||0),income=Math.max(0,Number(state.housing.income)||0),spend=fixed+variable,capacity=income-spend,rate=income>0?capacity/income*100:0,configured=state.expenses.items.length>0||variable>0;return {essential,optional,fixed,variable,income,spend,capacity,rate,configured}}
+function housingCalc(h){const f=h.financePct/100,t=h.taxPct/100,c=h.costPct/100,loan=h.price*f,down=h.price-loan,fees=h.price*(t+c),needed=down+fees,gap=Math.max(0,needed-h.savings),mr=(h.rate/100)/12,n=h.years*12;let payment=0;if(loan>0)payment=mr===0?loan/n:loan*(mr*Math.pow(1+mr,n))/(Math.pow(1+mr,n)-1);const effort=h.income>0?(payment/h.income*100):0,progress=needed>0?Math.max(0,Math.min(100,h.savings/needed*100)):100,months=gap===0?0:(h.monthlySaving>0?Math.ceil(gap/h.monthlySaving):null);return {loan,down,fees,needed,gap,payment,effort,progress,months}}
+function readHousing(){return {income:val('income',2000,0,100000),savings:val('savings',25000,0,5000000),price:val('price',200000,1000,10000000),financePct:val('financePct',80,0,100),taxPct:val('taxPct',10,0,30),costPct:val('costPct',2,0,20),rate:val('rate',3,0,25),years:val('years',30,1,50),monthlySaving:val('monthlySaving',600,0,100000)}}
+function fillHousing(h){Object.keys(h).forEach(k=>{if($(k))$(k).value=h[k]});if($('expenseIncome'))$('expenseIncome').value=h.income}
+function updateHousing(persist=true){const h=readHousing(),r=housingCalc(h);if(persist){state.housing=h;if($('expenseIncome'))$('expenseIncome').value=h.income;save()}$('loanOut').textContent=eur.format(r.loan);$('downOut').textContent=eur.format(r.down);$('feesOut').textContent=eur.format(r.fees);$('neededOut').textContent=eur.format(r.needed);$('gapOut').textContent=eur.format(r.gap);$('paymentOut').textContent=eur.format(r.payment)+'/mes';$('effortOut').textContent=h.income>0?pct(r.effort):'—';$('progressLabel').textContent=Math.round(r.progress)+' %';$('progressBar').style.width=r.progress+'%';const dot=$('houseDot');if(r.gap>0){$('houseStatus').textContent='Aún no cubres la entrada y gastos';$('houseStatusDetail').textContent='Te faltan '+eur.format(r.gap)+(r.months!==null?' · '+monthsText(r.months)+' al ritmo indicado':'');dot.style.background='var(--amber)'}else if(r.effort>35){$('houseStatus').textContent='Ahorro cubierto; revisa la carga mensual';$('houseStatusDetail').textContent='La cuota equivale al '+pct(r.effort)+' del sueldo neto indicado.';dot.style.background='var(--red)'}else{$('houseStatus').textContent='Escenario con ahorro inicial cubierto';$('houseStatusDetail').textContent='La cuota equivale al '+pct(r.effort)+' del sueldo neto indicado.';dot.style.background='var(--green)'}updateHome();return {h,r}}
+function updateHome(){const h=state.housing,r=housingCalc(h),e=expenseStats();$('homeIncome').textContent=eur.format(h.income);$('homeFixed').textContent=e.configured?eur.format(e.fixed):'—';$('homeVariable').textContent=e.configured?eur.format(e.variable):'—';$('homeCapacity').textContent=e.configured?eur.format(e.capacity)+'/mes':'—';$('homeCapacity').className='value '+(e.capacity<0?'bad':'good');$('homeSavingRate').textContent=e.configured?(pct(e.rate)+' del ingreso'):'Añade tus gastos';$('homeSavings').textContent=eur.format(h.savings);$('homePrice').textContent=eur.format(h.price);$('homeNeeded').textContent=eur.format(r.needed);$('homePayment').textContent=eur.format(r.payment)+'/mes';$('homeProgressValue').textContent=Math.round(r.progress)+' %';$('homeProgress').style.width=r.progress+'%';$('homeGap').textContent=r.gap>0?'Faltan '+eur.format(r.gap):'Ahorro inicial cubierto';$('homeStatus').textContent=e.configured?('Capacidad de ahorro: '+eur.format(e.capacity)+'/mes'):(r.gap>0?'Añade tus gastos para calcular tu capacidad real':'Entrada + gastos cubiertos')}
+function renderExpenses(){const e=expenseStats();$('expenseIncome').value=state.housing.income;$('variableBudget').value=state.expenses.variableBudget;$('essentialOut').textContent=eur.format(e.essential);$('optionalOut').textContent=eur.format(e.optional);$('totalSpendOut').textContent=eur.format(e.spend);$('capacityOut').textContent=e.configured?eur.format(e.capacity)+'/mes':'—';$('capacityOut').className='value '+(e.capacity<0?'bad':'good');$('rateOut').textContent=e.configured?pct(e.rate)+' del ingreso':'Añade al menos un gasto o presupuesto variable';const list=$('expenseList');if(!state.expenses.items.length){list.innerHTML='<div class="empty">Todavía no has añadido gastos fijos.<br>Teléfono va en <strong>Comunicaciones</strong>; Netflix o Spotify en <strong>Suscripciones y ocio</strong>.</div>';updateHome();return}list.innerHTML=state.expenses.items.map(item=>{const m=expenseMonthly(item);return '<div class="expense-row"><div class="expense-main"><div class="expense-name">'+escapeHtml(item.name)+'</div><div class="expense-meta"><span class="tag '+(item.type==='optional'?'optional':'essential')+'">'+(item.type==='optional'?'Prescindible':'Esencial')+'</span>'+escapeHtml(item.category)+' · '+freqLabel(item.frequency)+'</div></div><div class="expense-amount">'+eur2.format(item.amount)+'<span class="expense-monthly">≈ '+eur2.format(m)+'/mes</span></div><button type="button" class="icon-btn" data-expense-delete="'+item.id+'" aria-label="Eliminar '+escapeHtml(item.name)+'">×</button></div>'}).join('');updateHome()}
+function addExpense(){const name=($('expenseName').value||'').trim(),amount=val('expenseAmount',0,0,1000000);if(!name){$('expenseName').focus();return}if(amount<=0){$('expenseAmount').focus();return}state.expenses.items.unshift({id:Date.now(),name:name.slice(0,40),amount,frequency:$('expenseFrequency').value,category:$('expenseCategory').value,type:$('expenseType').value});save();$('expenseName').value='';$('expenseAmount').value='';$('expenseFrequency').value='monthly';renderExpenses()}
+function syncExpenseIncome(){state.housing.income=val('expenseIncome',state.housing.income,0,100000);if($('income'))$('income').value=state.housing.income;save();updateHousing(false);renderExpenses()}
+function readGoal(){return {name:($('goalName').value||'Objetivo').trim().slice(0,40),target:val('goalTarget',64000,0,10000000),current:val('goalCurrent',25000,0,10000000),monthly:val('goalMonthly',600,0,100000)}}
+function fillGoal(g){$('goalName').value=g.name;$('goalTarget').value=g.target;$('goalCurrent').value=g.current;$('goalMonthly').value=g.monthly}
+function updateGoal(persist=true){const g=readGoal(),remaining=Math.max(0,g.target-g.current),progress=g.target>0?Math.max(0,Math.min(100,g.current/g.target*100)):100,months=remaining===0?0:(g.monthly>0?Math.ceil(remaining/g.monthly):null);if(persist){state.goal=g;save()}$('goalProgress').style.width=progress+'%';$('goalProgressLabel').textContent=Math.round(progress)+' %';if(remaining===0){$('goalResult').textContent='Objetivo alcanzado';$('goalDetail').textContent='Ya has cubierto '+eur.format(g.target)+'.'}else if(months===null){$('goalResult').textContent='Faltan '+eur.format(remaining);$('goalDetail').textContent='Añade un ahorro mensual para estimar una fecha.'}else{$('goalResult').textContent=monthsText(months);$('goalDetail').textContent='Faltan '+eur.format(remaining)+' · fecha estimada: '+futureDate(months)}return {g,remaining,progress,months}}
+function renderSavedGoal(){const w=$('savedGoalWrap'),g=state.savedGoal;if(!g){w.innerHTML='<div class="empty">Todavía no has guardado ningún objetivo.</div>';return}const remaining=Math.max(0,g.target-g.current),months=remaining===0?0:(g.monthly>0?Math.ceil(remaining/g.monthly):null);w.innerHTML='<div class="goal-card"><h3>'+escapeHtml(g.name)+'</h3><div class="sub">'+eur.format(g.current)+' de '+eur.format(g.target)+'</div><div class="result-row"><span>Ahorro mensual</span><strong>'+eur.format(g.monthly)+'</strong></div><div class="result-row"><span>Plazo estimado</span><strong>'+monthsText(months)+'</strong></div></div>'}
+function saveScenario(){const {h,r}=updateHousing();const stamp=Date.now();const item={id:stamp,name:'Vivienda '+eur.format(h.price),created:stamp,housing:h,summary:{needed:r.needed,gap:r.gap,payment:r.payment,effort:r.effort}};state.scenarios.unshift(item);state.scenarios=state.scenarios.slice(0,20);save();renderScenarios();showPage('scenarios')}
+function renderScenarios(){const list=$('scenarioList');if(!state.scenarios.length){list.innerHTML='<div class="empty">Guarda una simulación de vivienda para compararla más tarde.</div>';return}list.innerHTML=state.scenarios.map(s=>'<article class="scenario"><div class="scenario-top"><div><h3>'+escapeHtml(s.name)+'</h3><p>'+new Intl.DateTimeFormat('es-ES',{day:'2-digit',month:'short',year:'numeric'}).format(new Date(s.created))+'</p></div><div class="badge">'+s.housing.financePct+' %</div></div><div class="mini"><div><span>Necesitas</span><strong>'+eur.format(s.summary.needed)+'</strong></div><div><span>Cuota</span><strong>'+eur.format(s.summary.payment)+'/mes</strong></div><div><span>Cuota / sueldo</span><strong>'+pct(s.summary.effort)+'</strong></div></div><div class="scenario-actions"><button data-load="'+s.id+'">Cargar</button><button data-delete="'+s.id+'" style="color:#ff9792">Eliminar</button></div></article>').join('')}
+function useCapacity(targetId){const e=expenseStats();if(!e.configured){alert('Añade primero tus gastos y presupuesto variable en la pestaña Gastos.');showPage('expenses');return}const amount=Math.max(0,Math.floor(e.capacity));$(targetId).value=amount;if(targetId==='monthlySaving')updateHousing(true);else updateGoal(true)}
+function showPage(page){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id==='page-'+page));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));window.scrollTo(0,0);if(page==='scenarios')renderScenarios();if(page==='home')updateHome();if(page==='goal')renderSavedGoal();if(page==='expenses')renderExpenses()}
+
+document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.go)));
+fillHousing(state.housing);fillGoal(state.goal);$('variableBudget').value=state.expenses.variableBudget;updateHousing(false);updateGoal(false);renderSavedGoal();renderScenarios();renderExpenses();updateHome();
+['income','savings','price','financePct','taxPct','costPct','rate','years','monthlySaving'].forEach(id=>$(id).addEventListener('input',()=>updateHousing(true)));
+['goalName','goalTarget','goalCurrent','goalMonthly'].forEach(id=>$(id).addEventListener('input',()=>updateGoal(true)));
+$('expenseIncome').addEventListener('input',syncExpenseIncome);
+$('variableBudget').addEventListener('input',()=>{state.expenses.variableBudget=val('variableBudget',0,0,100000);save();renderExpenses()});
+$('expenseForm').addEventListener('submit',e=>{e.preventDefault();addExpense()});
+$('expenseList').addEventListener('click',e=>{const b=e.target.closest('[data-expense-delete]');if(!b)return;state.expenses.items=state.expenses.items.filter(x=>String(x.id)!==b.dataset.expenseDelete);save();renderExpenses()});
+$('housingForm').addEventListener('submit',e=>e.preventDefault());$('goalForm').addEventListener('submit',e=>e.preventDefault());
+$('useCapacityHousing').addEventListener('click',()=>useCapacity('monthlySaving'));$('useCapacityGoal').addEventListener('click',()=>useCapacity('goalMonthly'));
+$('resetHousing').addEventListener('click',()=>{const income=state.housing.income;state.housing=structuredCloneSafe(defaults.housing);state.housing.income=income;fillHousing(state.housing);save();updateHousing(false)});
+$('saveScenario').addEventListener('click',saveScenario);
+$('saveGoal').addEventListener('click',()=>{const {g}=updateGoal();state.savedGoal=structuredCloneSafe(g);save();renderSavedGoal()});
+$('scenarioList').addEventListener('click',e=>{const loadBtn=e.target.closest('[data-load]'),delBtn=e.target.closest('[data-delete]');if(loadBtn){const s=state.scenarios.find(x=>String(x.id)===loadBtn.dataset.load);if(s){state.housing=structuredCloneSafe(s.housing);fillHousing(state.housing);save();updateHousing(false);showPage('housing')}}if(delBtn){state.scenarios=state.scenarios.filter(x=>String(x.id)!==delBtn.dataset.delete);save();renderScenarios()}});
+})();
+</script>
+</body>
+</html>
